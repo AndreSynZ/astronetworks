@@ -305,13 +305,14 @@ sq.getPlayers(function(err, players){
     myembed.setTitle("Players Currently Online:")
     myembed.setAuthor("Navy SEALs Database", "https://imgur.com/cynJ0Yp.png")
     myembed.setDescription(playersString)
-    myembed.addField('Total Players Online:', players.length + '/45')
-    myembed.setColor(colorlist[Math.floor(Math.random() * colorlist.length).toString(7)])
+    myembed.addField('Total Players Online:', players.length + '/35')
+    myembed.setColor('RANDOM')
     myembed.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/e348c772a6727289c320942756672d7a.png")
     myembed.setThumbnail("https://cdn.discordapp.com/attachments/551802691488055325/561907561750724629/navy.png")
     myembed.setTimestamp()	
     message.channel.send(myembed);
 })};
+	
 	
 	
 	 if (command === "join") {
