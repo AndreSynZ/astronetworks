@@ -217,7 +217,7 @@ if (!args[1]) return message.channel.send('Proper Usage: `=poll <text> (Atleast 
 
 let embed = new Discord.RichEmbed()
 	.setColor('RANDOM')
-	.setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+	.setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
 	.addField("|   " + args.join(' ') + "   |", 'React to vote!')
 	.setDescription(`Poll Created By ${message.member.user.tag}`)
 	.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
@@ -303,7 +303,7 @@ sq.getPlayers(function(err, players){
         playersString += ply.name + '\n';
     })
     myembed.setTitle("Players Currently Online:")
-    myembed.setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+    myembed.setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
     myembed.setDescription(playersString)
     myembed.addField('Total Players Online:', players.length + '/35')
     myembed.setColor('RANDOM')
@@ -392,7 +392,7 @@ sq.open('51.89.128.98', 27016);
 sq.getInfo(function(err, info){
     let myembed = new Discord.RichEmbed ()
 	.setTitle("DarkRP Server Information:")
-	.setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+	.setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
     .setColor('RANDOM')
     .addField("Players:", info['players'] + "/35")
     .addField("Map:", info['map'])
@@ -431,7 +431,7 @@ var member = message.mentions.users.first();
   if(command === "info") {
     let myembed = new Discord.RichEmbed()
     .setTitle('Information!')
-    .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+    .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
     .setColor('RANDOM')
     .setDescription('This is information about the DarkRP Server, and the Discord Server!')
     .addField(':robot: Astro Bot:', 'In order to see the commands avaliable, type `=help`! ')
@@ -458,7 +458,7 @@ var member = message.mentions.users.first();
     if(command === "donate") {
     let myembed = new Discord.RichEmbed()
     .setTitle('Donate!')
-    .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+    .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
     .setColor('RANDOM')
     .setDescription('https://astronetworksmrp.mistforums.com/donate')
     .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
@@ -503,7 +503,7 @@ return rand[Math.floor(Math.random()*rand.length)];
 }
     let myembed = new Discord.RichEmbed()
     .setTitle('You got..')
-    .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+    .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
     .setColor('RANDOM')
     .setDescription(doRandHT())
     .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
@@ -514,7 +514,7 @@ return rand[Math.floor(Math.random()*rand.length)];
 	
 if(command === "ip") {
 let myembed = new Discord.RichEmbed()
-.setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+.setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
 .setColor('RANDOM')
 .addField("Server IP:", "steam://connect/51.89.128.98:27016")
 .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
@@ -548,7 +548,7 @@ if (command == "8ball") { // creates the command 8ball
   if(command === "help") {
      let myembed = new Discord.RichEmbed()
      .setTitle('Commands')
-     .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+     .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
      .setColor('RANDOM')
      .setDescription('These are all the commands that you can currently use on the bot. | ***More will be coming soon!***')
      .addField(':smile: Fun Commands:', '`=say, =8ball, =coinflip, =avatar` ')
