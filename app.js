@@ -503,7 +503,7 @@ return rand[Math.floor(Math.random()*rand.length)];
 }
     let myembed = new Discord.RichEmbed()
     .setTitle('You got..')
-    .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png"")
+    .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
     .setColor('RANDOM')
     .setDescription(doRandHT())
     .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
