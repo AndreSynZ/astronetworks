@@ -391,7 +391,7 @@ sq.open('51.89.128.98', 27016);
  
 sq.getInfo(function(err, info){
     let myembed = new Discord.RichEmbed ()
-	.setTitle("DarkRP Server Information:")
+	.setTitle("MilitaryRP Server Information:")
 	.setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
     .setColor('RANDOM')
     .addField("Players:", info['players'] + "/35")
