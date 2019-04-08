@@ -1,8 +1,9 @@
-
-
-// Load up the discord.js library
+// Load up the discordjs library
 const Discord = require("discord.js");
-const YTDL = require("ytdl-core");
+const dl = require('discord-leveling');
+const ytdl = require('ytdl-core');
+let broadcast;
+
 
 // This is your client. Some people call it `bot`, some people call it `self`,
 // some might call it `cootchie`. Either way, when you see `client.something`, or `bot.something`,
@@ -11,36 +12,48 @@ const client = new Discord.Client();
 const token = process.env.token;
 
 // Here we load the config.json file that contains our token and our prefix values.
-const config = require("./config.json");
+const config = require('./config.json');
 // config.token contains the bot's token
 // config.prefix contains the message prefix.
 const PREFIX = "=" // bot's prefix
 
 var SourceQuery = require('sourcequery');
 
-var servers = {};
 
 
 
 
 
-const colorlist = [
-	"#675645",
-	"#e1d798",
-	"#424756",
-	"#4d784e",
-	"#6ea171"
-	];
+var emoji = [ // sets the answers to an emoji
+  "😂",
+  "🎉",
+  "👌",
+  "🙏",
+  "👀",
+]
 
 
 
+
+
+
+var eightball = [ // sets the answers to an eightball
+  ":8ball: | Yes!",
+  ":8ball: | No.",
+  ":8ball: | Maybe.",
+  ":8ball: | Probably!",
+  ":8ball: | I don't think so.",
+  ":8ball: | Maybe.",
+]
 
 const fs = require('fs');
 
+
 const activities_list = [
-    "with Air | =help", 
+    "with OzDog | =help", 
     "with Archer | =help",
-    "with Gallagher | =help"
+    "with Alan | =help", 
+    "with Camp | =help"
     ]; // creates an arraylist containing phrases you want your bot to switch through.
 
 client.on('ready', () => {
@@ -48,7 +61,7 @@ client.on('ready', () => {
     setInterval(() => {
         const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); // generates a random number between 1 and the length of the activities array list (in this case 5).
         client.user.setActivity(activities_list[index], { type: "STREAMING", url: "https://www.twitch.tv/somethingluulop"}); // sets bot's activities to one of the phrases in the arraylist.
-    }, 6000); // Runs this every 10 seconds.
+    }, 5000); // Runs this every 10 seconds.
 });
 
 
@@ -75,17 +88,103 @@ client.on("message", async message => {
   // Let's go with a few common example commands! Feel free to delete or change those.
 
 
+	  //When someone sends a message add xp
+  var profile = await dl.Fetch(message.author.id)
+  dl.AddXp(message.author.id, 10)
+  //If user xp higher than 100 add level
+  if (profile.xp + 10 > 90) {
+    await dl.AddLevel(message.author.id, 1)
+	      var Role = message.guild.roles.find(x => x.name === "Legend")
+    message.member.addRole(Role)
+
+
+  }
+	
+	
+	
+  if(command === "coins") {
+	  
+	var user = message.mentions.users.first() || message.author
+ 
+    var output = await dl.Fetch(user.id)
+	  
+	  
+    let myembed = new Discord.RichEmbed()
+    .setTitle(`${message.member.user.tag}` + "'s current coins!", message.author.avatarURL)
+    .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+    .setColor('RANDOM')
+    .setDescription(`${output.xp}`)
+    .addField('Your reward:', 'In order to get the ``Legend`` role you will need to reach 100 coins.')
+    .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
+    .setThumbnail("https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+    message.channel.send(myembed)
+	  
+	              .then(function (message) {
+              message.react(emoji[Math.floor(Math.random() * emoji.length).toString(16)])
+            }).catch(function() {
+              //Something
+             })
+ }
+	
+
+ 
+
+  
+ 
+
+    
+	
+	
+	
+	
+	
+	if (command === 'discordupdate') {
+		
+		 
+		if (!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permission to use this command.')
+		
+		let testembed = new Discord.RichEmbed()
+		.setTitle('Discord Update')
+		.setDescription('- ' + args.join(" "))
+		.setColor('#4295f4')
+		.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
+		
+		message.delete().catch(O_o=>{});
+		
+		message.channel.send(testembed)
+	};
+	
+	
+
+	
+	
+	
+		if (command === 'darkrpupdate') {
+		
+		 
+		if (!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permission to use this command.')
+		
+		let testembed = new Discord.RichEmbed()
+		.setTitle('MilitaryRP Update')
+		.setDescription('- ' + args.join(" "))
+		.setColor('#f570f9')
+		.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
+		
+		message.delete().catch(O_o=>{});
+		
+		message.channel.send(testembed)
+	};
 	
 	
 	
 
-
+  
 	
 	
 	
 	
 	
-
+	
   if(command === "ping") {
     // Calculates ping between sending a message and editing it, giving a nice round-trip latency.
     // The second ping is an average latency between the bot and the websocket server (one-way, not round-trip)
@@ -105,156 +204,40 @@ client.on("message", async message => {
   
   
 
-
-	// Medals
-	
-	if(command === 'moh') {
-	
-	if (!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permission to use this command.')
-
-		let mohembed = new Discord.RichEmbed()
-		.setTitle('Medal of Honor')
-		.setColor('RANDOM')
-		.addField('Achieving the Medal of Honor:', 'Be the best of the best.')
-		.setImage('http://www.esacademic.com/pictures/eswiki/85/US_Navy_Medal_of_Honor_%281913_to_1942%29.png')
-		.setDescription('These medals stay with you forever, even when you retire.')
-		.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/e348c772a6727289c320942756672d7a.png")
-		
-		message.delete().catch(O_o=>{});
-		message.channel.send(mohembed)
-	};
-	
-	if(command == 'mons') {
-		
-	if (!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permission to use this command.')
-	
-		let monsembed = new Discord.RichEmbed()
-		.setTitle('The SEAL Medal')
-		.setColor('RANDOM')
-		.addField('Achieving the SEAL Medal:', 'Reach a Officer ranking.')
-		.setImage('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/United_States_Navy_Special_Warfare_insignia.png/250px-United_States_Navy_Special_Warfare_insignia.png')
-		.setDescription('These medals stay with you forever, even when you retire.')
-		.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/e348c772a6727289c320942756672d7a.png")
-		
-		message.delete().catch(O_o=>{});
-		message.channel.send(monsembed)
 	
 	
-	};
-		
-	
-	// Random
-
-	if (command === 'update') {
-		
-		 
-		if (!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permission to use this command.')
-		
-		let testembed = new Discord.RichEmbed()
-		.setDescription('- ' + args.join(" "))
-		.setColor('RANDOM')
-		.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/e348c772a6727289c320942756672d7a.png")
-		
-		message.delete().catch(O_o=>{});
-		
-		message.channel.send(testembed)
-	};
-
-
 	
 
-	if(command === 'loa') {
-		if (!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permission to use this command.')
-		if (!args[0]) return message.channel.send("Proper Usage: `=loa <reason> <days until return>(Atleast four words in the LOA text is needed)`")
-		if (!args[5]) return message.channel.send('Proper Usage: `=loa <reason> <days until return(Maximum four words in the LOA text is allowed.)`')
-		
-		let testingembed = new Discord.RichEmbed()
-		.setAuthor("Person Going LOA: " + `${message.member.user.tag}`, message.author.avatarURL)
-		.addField('Reason:', args[0] + " " + args[1] + " " + args[2])
-		.addField('Time Left:', args[4])
-		.setColor('RANDOM')
-		.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/e348c772a6727289c320942756672d7a.png")
-	
-				    let sugchannel = message.guild.channels.find(x => x.name === "loa")
-    if(!sugchannel) return message.channel.send("Can't find loa channel")
-		
-		
-		message.delete().catch(O_o=>{});
-		
-
-		
-		message.channel.send(testingembed)
- };
+if(command === 'poll') {
 
 
-		      if(command === 'players') {
-  
-  var sq = new SourceQuery(1000); // 1000ms timeout
-sq.open('51.89.128.98', 27016);
- 
+
+if (!args[1]) return message.channel.send('Proper Usage: `=poll <text> (Atleast two words is needed.)`')
 
 
- 
-sq.getPlayers(function(err, players){
-    let myembed = new Discord.RichEmbed ()
-    let playersString = "";
-    players.forEach(ply => {
-        playersString += ply.name + '\n';
-    })
-    myembed.setTitle("Players Currently Online:")
-    myembed.setAuthor("Navy SEALs Database", "https://imgur.com/cynJ0Yp.png")
-    myembed.setDescription(playersString)
-    myembed.addField('Total Players Online:', players.length + '/45')
-    myembed.setColor(colorlist[Math.floor(Math.random() * colorlist.length).toString(7)])
-    myembed.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/e348c772a6727289c320942756672d7a.png")
-    myembed.setThumbnail("https://cdn.discordapp.com/attachments/551802691488055325/561907561750724629/navy.png")
-    myembed.setTimestamp()	
-    message.channel.send(myembed);
-})};
+let embed = new Discord.RichEmbed()
+	.setColor('RANDOM')
+	.setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
+	.addField("|   " + args.join(' ') + "   |", 'React to vote!')
+	.setDescription(`Poll Created By ${message.member.user.tag}`)
+	.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
+    	.setThumbnail("https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+	
+	let msg = await message.channel.send(embed)
 	
 	
+            .then(function (message) {
+              message.react("👍")
+              message.react("👎")
+            }).catch(function() {
+              //Something
+             })
 	
+	message.delete({timeout: 1000})};
 	
-	
-	
-	
-	
-	
-	      if(command === 'server') {
-  
-  var sq = new SourceQuery(1000); // 1000ms timeout
-sq.open('51.89.128.98', 27016);
- 
 
-
- 
-sq.getInfo(function(err, info){
-    let myembed = new Discord.RichEmbed ()
-	.setTitle("Server Information:")
-	.setAuthor("Navy SEALs Database", "https://imgur.com/cynJ0Yp.png")
-    .setColor(colorlist[Math.floor(Math.random() * colorlist.length).toString(7)])
-    .addField("Players:", info['players'] + "/45")
-    .addField("Map:", info['map'])
-    .addField("Gamemode:", "MilitaryRP")
-    .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/e348c772a6727289c320942756672d7a.png")
-    .setThumbnail("https://cdn.discordapp.com/attachments/551802691488055325/561907561750724629/navy.png")
-    .setTimestamp()
-     message.channel.send(myembed)
-});
- 
- };
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	if(command === 'suggest') {
+if(command === 'suggest') {
 
 
 	
@@ -265,11 +248,11 @@ let sugembed = new Discord.RichEmbed()
 	.setAuthor('Suggestion Created By: ' + `${message.member.user.tag}`, message.author.avatarURL)
 	.setDescription(args.join(' '))
 	.setColor('RANDOM')
-	.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/e348c772a6727289c320942756672d7a.png")
-    	.setThumbnail("https://cdn.discordapp.com/attachments/551802691488055325/561907561750724629/navy.png")
+	.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
+    	.setThumbnail("https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
 	.setTimestamp()
 
-    let sugchannel = message.guild.channels.find(x => x.name === "suggestions")
+    let sugchannel = message.guild.channels.find(`name`, "suggestions")
     if(!sugchannel) return message.channel.send("Can't find suggestions channel")
 
     sugchannel.send(sugembed)
@@ -293,54 +276,201 @@ let sugembed = new Discord.RichEmbed()
 if (!args[1]) return message.channel.send('')
 		
 	message.channel.send('Thank you for your suggestion!')};
+
+	
+	
+	
+	
+
+	
 	
 	
 	
   
+	
+		      if(command === 'players') {
+  
+  var sq = new SourceQuery(1000); // 1000ms timeout
+sq.open('51.89.128.98', 27016);
+ 
 
 
-
-
-if(command === "ip") {
-var member = message.mentions.users.first();
-    let embed = new Discord.RichEmbed()
-  .setColor(colorlist[Math.floor(Math.random() * colorlist.length).toString(7)])
-  .addField('Server IP:', '51.75.174.10:27018')
-    message.channel.send(embed)
-};
-
-	if(command === "forums") {
-var member = message.mentions.users.first();
-    let embed = new Discord.RichEmbed()
-  .setColor(colorlist[Math.floor(Math.random() * colorlist.length).toString(7)])
-  .addField('Forums:', 'https://carbonmrp.mistforums.com/')
-    message.channel.send(embed)
-};
+ 
+sq.getPlayers(function(err, players){
+    let myembed = new Discord.RichEmbed ()
+    let playersString = "";
+    players.forEach(ply => {
+        playersString += ply.name + '\n';
+    })
+    myembed.setTitle("Players Currently Online:")
+    myembed.setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
+    myembed.setDescription(playersString)
+    myembed.addField('Total Players Online:', players.length + '/35')
+    myembed.setColor(colorlist[Math.floor(Math.random() * colorlist.length).toString(7)])
+    myembed.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
+    myembed.setThumbnail("https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+    myembed.setTimestamp()	
+    message.channel.send(myembed);
+})};
+	
+	
+	 if (command === "join") {
+		 if (!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permission to use this command.')
+    // Only try to join the sender's voice channel if they are in one themselves
+    if (message.member.voiceChannel) {
+      // check if there is already a voice connection
+      if (message.member.voiceChannel.connection) {
+        console.log('conn status: ' + message.member.voiceChannel.connection.status);
+      }
+      console.log('is joinable: ' + message.member.voiceChannel.joinable);
+      if (message.member.voiceChannel.joinable) {
+        message.member.voiceChannel.join()
+          .then(connection => { // Connection is an instance of VoiceConnection
+            message.reply('I have successfully connected to the channel!');
+          })
+          .catch(console.error);
+      }
+    } else {
+      message.reply('You need to join a voice channel first!');
+    }
+  }
+	
+	
 	
 	
 
+
+        if (command === 'play') {
+
+            if (!args[0]) return message.channel.send('Sorry, please input a url following the command.');
+            async function validate(url){
+                return await ytdl.validateURL(url);
+            }
+            let valid = validate(args[0]);
+            if (!valid) return message.channel.send('Sorry, please input a **valid** url following the command.');
+            
+            async function run(message, url){
+                let connection = message.member.voiceChannel.join().then(async (e)=>{
+                    let stream = ytdl(url, { filter: 'audioonly' });
+                    if (!broadcast) {
+                        broadcast = client.createVoiceBroadcast();
+                        e.playBroadcast(broadcast);
+                    }
+                    stream.on('error', console.error); 
+
+                   let startStream = await e.playStream(stream, {volume:0.5})
+     
+                });
+                message.channel.send(`Now playing a song`);    
+            }
+            run(message, args[0]);
+    
+        }
+	
+        
+
+
+
+
+
+
+	
+	
+	
+
+	
+  
+  
+      if(command === 'server') {
+  
+  var sq = new SourceQuery(1000); // 1000ms timeout
+sq.open('51.89.128.98', 27016);
+ 
+
+
+ 
+sq.getInfo(function(err, info){
+    let myembed = new Discord.RichEmbed ()
+	.setTitle("MilitaryRP Server Information:")
+	.setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
+    .setColor('RANDOM')
+    .addField("Players:", info['players'] + "/35")
+    .addField("Map:", info['map'])
+    .addField("Gamemode:", "MilitaryRP")
+    .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
+    .setThumbnail("https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+    .setTimestamp()
+     message.channel.send(myembed)
+});
+ 
+ };
+  
+    
 if(command === "avatar") {
 var member = message.mentions.users.first();
     let embed = new Discord.RichEmbed()
-  .setColor(colorlist[Math.floor(Math.random() * colorlist.length).toString(7)])
+  .setColor('RANDOM')
   .setImage(message.author.avatarURL)
     message.channel.send(embed)
-};
+  }
+
+	
+  	
+
+	
+	
+	
+	
+	
+
+  
+ 
 
 
 
-  if(command === "help") {
-     let myembed = new Discord.RichEmbed()
-     .setTitle('Commands')
-     .setAuthor("Navy SEALs Database", "https://imgur.com/cynJ0Yp.png")
-     .setColor(colorlist[Math.floor(Math.random() * colorlist.length).toString(7)])
-     .setDescription('These are all the commands that you can currently use on the bot.')
-     .addField(':smile: Fun Commands:', '`=say, =avatar, =coinflip` ', true)
-     .addField(':gear: Bot/Server:', '`=ping, =server, =players, =stats, =suggest, =ip, =forums` ')
-	.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/e348c772a6727289c320942756672d7a.png")
-     message.channel.send(myembed)
-  };
+  if(command === "info") {
+    let myembed = new Discord.RichEmbed()
+    .setTitle('Information!')
+    .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
+    .setColor('RANDOM')
+    .setDescription('This is information about the DarkRP Server, and the Discord Server!')
+    .addField(':robot: Astro Bot:', 'In order to see the commands avaliable, type `=help`! ')
+    .addField(':dog: Discord Server:', 'If you see any errors within the discord server that needs fixing, contact a member of the DMT! `(Discord Moderation Team)`. ')
+    .addField(':moneybag: Server:', 'If you need any assistance from the In-game staff members, simply type ``@CRUSHED Staff Team <message>`` to get assistance! ')
+    .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
+    .setThumbnail("https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+    message.channel.send(myembed)
+ }
+ 
+ 
+   if(command === "forums") {
+    let myembed = new Discord.RichEmbed()
+    .setTitle('Forums!')
+    .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+    .setColor('RANDOM')
+    .setDescription('https://astronetworksmrp.mistforums.com/')
+    .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
+    .setThumbnail("https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+    message.channel.send(myembed)
+ }
+ 
+ 
+    if(command === "donate") {
+    let myembed = new Discord.RichEmbed()
+    .setTitle('Donate!')
+    .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
+    .setColor('RANDOM')
+    .setDescription('https://astronetworksmrp.mistforums.com/donate')
+    .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
+    .setThumbnail("https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+    message.channel.send(myembed)
+ }
+ 
+ 
 
+  
+
+    // Variables
     let servers = client.guilds.size; // Server Count
     let users = 0; // Start of user count
     let channels = client.channels.size; // Channel Count
@@ -352,17 +482,18 @@ var member = message.mentions.users.first();
 	if(command == "stats")
 {
     let myembed = new Discord.RichEmbed()
-        .setTitle('Discord Server Statistics')
-    	.setColor(colorlist[Math.floor(Math.random() * colorlist.length).toString(7)])
-        .addField('Users:', users)
-        .addField('Channels:', channels)
-        .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/e348c772a6727289c320942756672d7a.png")
+        .setTitle('Server Statistics')
+    	.setColor('RANDOM')
+        .addField('Users ', users)
+        .addField('Channels ', channels)
+        .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
+    	.setThumbnail("https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
     	message.channel.send(myembed)
     
 };
-
-
-
+	
+	
+	
 if(command == "coinflip")
 {
       function doRandHT() {
@@ -370,32 +501,69 @@ var rand = ['HEADS!','TAILS!'];
 
 return rand[Math.floor(Math.random()*rand.length)];
 }
-	
-	
     let myembed = new Discord.RichEmbed()
     .setTitle('You got..')
-    .setAuthor("Navy SEALs Database", "https://imgur.com/cynJ0Yp.png")
-    .setColor(colorlist[Math.floor(Math.random() * colorlist.length).toString(7)])
+    .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
+    .setColor('RANDOM')
     .setDescription(doRandHT())
-    .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/e348c772a6727289c320942756672d7a.png")
+    .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
+    .setThumbnail("https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
     message.channel.send(myembed)
  };
 
-
-
-
-
-
-
-
-
-
-
-
-  })
+	
+if(command === "ip") {
+let myembed = new Discord.RichEmbed()
+.setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
+.setColor('RANDOM')
+.addField("Server IP:", "steam://connect/51.89.128.98:27016")
+.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
+.setThumbnail("https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+message.channel.send(myembed)
+};
+	
 
   
+  if (command == "cookie") { // creates the command cookie
+    if (args[0]) message.channel.send(message.author.toString() + " has given " + args[0].toString() + " a cookie! :cookie:") // sends the message saying someone has given someone else a cookie if someone mentions someone else
+    else message.channel.send("Who do you want to give a cookie to? :cookie: (Correct usage: =cookie @username)") // sends the error message if no-one is mentioned
+}
 
+if (command == "8ball") { // creates the command 8ball
+  if (args[0] != null) message.reply(eightball[Math.floor(Math.random() * eightball.length).toString(16)])
+	 
+            .then(function (message) {
+              message.react("🎱")
+            }).catch(function() {
+              //Something
+             }); // if args[1], post random answer
+  else message.channel.send("Ummmm, what is your question? :8ball: (Correct usage: =8ball <question>)"); // if not, error
+
+
+}
+
+
+
+
+  if(command === "help") {
+     let myembed = new Discord.RichEmbed()
+     .setTitle('Commands')
+     .setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
+     .setColor('RANDOM')
+     .setDescription('These are all the commands that you can currently use on the bot. | ***More will be coming soon!***')
+     .addField(':smile: Fun Commands:', '`=say, =8ball, =coinflip, =avatar` ')
+     .addField(':moneybag: Server Commands:', '`=server, =players, =ip, =forums, =donate, =suggest` ')
+     .addField(':gear: Discord Server Commands:', '`=ping, =info, =stats,=coins` ')
+     .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
+     .setThumbnail("https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
+     message.channel.send(myembed)
+  };
+
+
+	
+
+
+})
 
 
 
