@@ -159,7 +159,7 @@ client.on("message", async message => {
 	
 	
 	
-		if (command === 'darkrpupdate') {
+		if (command === 'mrpupdate') {
 		
 		 
 		if (!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permission to use this command.')
@@ -306,7 +306,7 @@ sq.getPlayers(function(err, players){
     myembed.setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
     myembed.setDescription(playersString)
     myembed.addField('Total Players Online:', players.length + '/35')
-    myembed.setColor(colorlist[Math.floor(Math.random() * colorlist.length).toString(7)])
+    myembed.setColor('RANDOM')
     myembed.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
     myembed.setThumbnail("https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
     myembed.setTimestamp()	
