@@ -288,30 +288,7 @@ if (!args[1]) return message.channel.send('')
 	
   
 	
-		      if(command === 'players') {
-  
-  var sq = new SourceQuery(1000); // 1000ms timeout
-sq.open('51.89.128.98', 27016);
- 
 
-
- 
-sq.getPlayers(function(err, players){
-    let myembed = new Discord.RichEmbed ()
-    let playersString = "";
-    players.forEach(ply => {
-        playersString += ply.name + '\n';
-    })
-    myembed.setTitle("Players Currently Online:")
-    myembed.setAuthor("Astro Bot", "https://cdn.discordapp.com/attachments/564804848818716682/564904665569820692/ANtest.png")
-    myembed.setDescription(playersString)
-    myembed.addField('Total Players Online:', players.length + '/35')
-    myembed.setColor('RANDOM')
-    myembed.setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
-    myembed.setThumbnail("https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
-    myembed.setTimestamp()	
-    message.channel.send(myembed);
-})};
 	
 	
 	 if (command === "join") {
@@ -524,10 +501,7 @@ message.channel.send(myembed)
 	
 
   
-  if (command == "cookie") { // creates the command cookie
-    if (args[0]) message.channel.send(message.author.toString() + " has given " + args[0].toString() + " a cookie! :cookie:") // sends the message saying someone has given someone else a cookie if someone mentions someone else
-    else message.channel.send("Who do you want to give a cookie to? :cookie: (Correct usage: =cookie @username)") // sends the error message if no-one is mentioned
-}
+
 
 if (command == "8ball") { // creates the command 8ball
   if (args[0] != null) message.reply(eightball[Math.floor(Math.random() * eightball.length).toString(16)])
@@ -552,8 +526,8 @@ if (command == "8ball") { // creates the command 8ball
      .setColor('RANDOM')
      .setDescription('These are all the commands that you can currently use on the bot. | ***More will be coming soon!***')
      .addField(':smile: Fun Commands:', '`=say, =8ball, =coinflip, =avatar` ')
-     .addField(':moneybag: Server Commands:', '`=server, =players, =ip, =forums, =donate, =suggest` ')
-     .addField(':gear: Discord Server Commands:', '`=ping, =info, =stats,=coins` ')
+     .addField(':moneybag: Server Commands:', '`=server, =ip, =forums, =donate, =suggest` ')
+     .addField(':gear: Discord Server Commands:', '`=ping, =info, =stats, =coins` ')
      .setFooter("Bot made by Archer", "https://cdn.discordapp.com/avatars/280313289857171456/a_59bf7b4460bd03dae629af84a9c96198.gif")
      .setThumbnail("https://cdn.discordapp.com/attachments/564804848818716682/564904592597450767/ANnewtest.png")
      message.channel.send(myembed)
